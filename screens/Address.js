@@ -31,7 +31,7 @@ const Address = ({ navigation }) => {
             paddingVertical: SIZES.padding * 4,
             paddingHorizontal: SIZES.padding,
             borderRadius: SIZES.radius,
-            backgroundColor: COLORS.primary,
+            backgroundColor: COLORS.lightGray1,
             paddingTop: 40,
           }}
         >

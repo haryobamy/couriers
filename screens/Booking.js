@@ -33,86 +33,24 @@ const Booking = ({ navigation }) => {
   function renderPlacesInput() {
 
 
-    const onchange = (data) => {
-      setAddress(data);
-    };
+    // const onchange = (data) => {
+    //   setAddress(data);
+    // };
 
     return (
 
-      <Placesearch
-        apikey={GOOGLE_API_KEY}
-        selectedAddress={(value) => console.log(value)}
-        // country='in'
-        removeImg={true}
 
-        Changeheader={false}
-        CustomHeader={
-          <View style={{ flexDirection: 'row', height: 45, alignItems: 'center' }}>
-
-            <TextInput
-              placeholder="Search for Places"
-              underlineColorAndroid='transparent'
-              autoFocus={true}
-              // onKeyPress={() => searchAddress()}
-              onChangeText={(value) => onchange(value)}
-              style={{
-                color: COLORS.black,
-                fontSize: 20,
-              }}
-            />
-          </View>
-        }
-        ChangList={true}
-        CustomList={(item) =>
-          <View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 5, width: '100%', height: 45 }}>
-              <Image source={icons.pin} style={{ width: 20, height: 20, tintColor: COLORS.black, }} />
-              <Text>
-                {item.description}
-              </Text>
-            </View>
-          </View>
-        }
-
-
-        InputContainer={{
-
+      <GooglePlacesAutocomplete
+        placeholder="Search"
+        query={{
+          key: GOOGLE_API_KEY,
+          language: 'en', // language of the results
         }}
-        MainContainer={{
-          backgroundColor: COLORS.primary
-        }}
-
-        ImgStyle={{
-          display: 'none',
-        }}
+        onPress={(data, details = null) => console.log(data, details)}
+        onFail={(error) => console.error(error)}
 
       />
-      // <GooglePlacesAutocomplete
 
-      //   query={{
-      //     key: GOOGLE_API_KEY,
-      //     language: 'en',
-
-      //   }}
-      //   onPress={(data, details) => console.log(data, details)}
-      //   placeholder='Search'
-      //   requestUrl={{
-      //     url: 'https://maps.googleapis.com/maps/api/place'
-      //   }}
-      //   textInputProps={{
-      //     inputComp: TextInput,
-      //     errorStyle: { color: 'red' },
-
-      //   }}
-      //   fetchDetails={true}
-      //   styles={{
-      //     textInput: {
-      //       color: COLORS.black,
-      //       fontSize: 18,
-      //     }
-
-      //   }}
-      // />
     )
 
   }
@@ -402,10 +340,10 @@ const Booking = ({ navigation }) => {
               }}>
                 <View style={{
                   width: SIZES.width,
-                  paddingVertical: SIZES.padding * 10,
+                  paddingVertical: SIZES.padding * 14,
                   paddingHorizontal: SIZES.padding,
                   borderRadius: SIZES.radius,
-                  backgroundColor: COLORS.white,
+                  backgroundColor: COLORS.lightGray,
                   // paddingTop: 40,
                   display: 'flex',
                   alignItems: 'center',
@@ -448,7 +386,10 @@ const Booking = ({ navigation }) => {
                   </View>
 
 
-                  <View >
+                  <View style={{
+                    position: "absolute",
+                    top: 70
+                  }}>
                     <Text style={{ color: COLORS.gray, ...FONTS.body2 }}>
                       Type a Post Code or Part of your address to begin with
                     </Text>
@@ -460,6 +401,10 @@ const Booking = ({ navigation }) => {
                       borderBottomWidth: 1,
                       marginBottom: 20,
                       alignItems: 'center',
+                      // backgroundColor: '#eee',
+                      // padding: 10,
+                      // height: "100%",
+
                     }}>
 
                       <Image
@@ -473,7 +418,9 @@ const Booking = ({ navigation }) => {
 
                         }}
                       />
+
                       {renderPlacesInput()}
+
                       {/* <TextInput
                         style={{
                           width: SIZES.width * 0.83,
